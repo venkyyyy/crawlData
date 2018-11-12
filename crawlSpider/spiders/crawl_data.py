@@ -1,16 +1,14 @@
 import scrapy
+from scrapy_splash import SplashRequest
 
 
 class Crawl_data(scrapy.Spider):
     name = "crawl_data"
+    start_urls = ["http://example.com"]
 
     def start_requests(self):
-        urls = [
-           "https://www.google.co.in/search?q=Prime+Air+in+US-WA-Seattle&ibp=htl;jobs"
-        ]
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+        for url in self.start_urls:
+            yield SplashRequest(url, self.parse, args={'wait': 0.5})
 
     def parse(self, response):
-        yield {'body':response.body}
-
+        yield response.body
