@@ -11,4 +11,7 @@ class Crawl_data(scrapy.Spider):
             yield SplashRequest(url, self.parse, args={'wait': 0.5})
 
     def parse(self, response):
-        yield {response.body}
+        # response.body is a result of render.html call; it
+        # contains HTML processed by a browser.
+        # .
+        yield response.body
