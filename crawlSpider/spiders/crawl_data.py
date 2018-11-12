@@ -12,5 +12,10 @@ class Crawl_data(scrapy.Spider):
         )
 
     def parse(self, response):
-        yield {'body':response.body}
+       # yield {'body':response.body}
+		values = response.xpath('//div[@class="nsol9b hxSlV"]').extract()
+		list=[]
+		for value in values:
+			list.append(value)
 
+		yield {"List_of_values":list}
