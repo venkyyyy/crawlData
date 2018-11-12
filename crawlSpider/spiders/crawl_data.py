@@ -4,14 +4,13 @@ from scrapy_splash import SplashRequest
 
 class Crawl_data(scrapy.Spider):
     name = "crawl_data"
-    start_urls = ["https://www.google.co.in/search?q=Republic+Services+in+U.S.&ibp=htl;jobs"]
+    start_urls = ['http://news.tv-asahi.co.jp/news_society/articles/000089004.html']
 
     def start_requests(self):
-        for url in self.start_urls:
-            yield SplashRequest(url, self.parse, args={'wait': 0.5})
+        yield SplashRequest(self.start_urls[0], self.parse,
+            args={'wait': 0.5},
+        )
 
     def parse(self, response):
-        # response.body is a result of render.html call; it
-        # contains HTML processed by a browser.
-        # .
-        yield response.body
+        yield {'body':response.body}
+
